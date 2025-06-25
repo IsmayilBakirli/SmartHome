@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{94D3037C-BFF0-4168-8C2C-8D860A827B5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8C010441-F907-4CD2-BDAB-DF9F9917A70C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{1DBCBDEA-BA36-4B98-B60E-69DAE2568DD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome.API", "Presentation\SmartHome.API\SmartHome.API.csproj", "{BCE3E233-1404-4F01-A936-AFA07BB3B7D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome.Domain", "Core\SmartHome.Domain\SmartHome.Domain.csproj", "{6652B7F6-C6CF-4FC7-8662-4C4EE7E15B73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome.Application", "Core\SmartHome.Application\SmartHome.Application.csproj", "{1404E95B-54CF-48A0-B8EC-84AA54DE428A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome.Infrastructure", "Infrastructure\SmartHome.Infrastructure\SmartHome.Infrastructure.csproj", "{45D263E9-FEF4-4977-A9B7-D1608859B637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome.Persistence", "Infrastructure\SmartHome.Persistence\SmartHome.Persistence.csproj", "{2AF80313-8F35-4572-BA07-FDA33B5A58E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F0EE88F-2B18-4495-8793-547F502DA1BE}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCE3E233-1404-4F01-A936-AFA07BB3B7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCE3E233-1404-4F01-A936-AFA07BB3B7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCE3E233-1404-4F01-A936-AFA07BB3B7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCE3E233-1404-4F01-A936-AFA07BB3B7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6652B7F6-C6CF-4FC7-8662-4C4EE7E15B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6652B7F6-C6CF-4FC7-8662-4C4EE7E15B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6652B7F6-C6CF-4FC7-8662-4C4EE7E15B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6652B7F6-C6CF-4FC7-8662-4C4EE7E15B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1404E95B-54CF-48A0-B8EC-84AA54DE428A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1404E95B-54CF-48A0-B8EC-84AA54DE428A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1404E95B-54CF-48A0-B8EC-84AA54DE428A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1404E95B-54CF-48A0-B8EC-84AA54DE428A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45D263E9-FEF4-4977-A9B7-D1608859B637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D263E9-FEF4-4977-A9B7-D1608859B637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D263E9-FEF4-4977-A9B7-D1608859B637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D263E9-FEF4-4977-A9B7-D1608859B637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AF80313-8F35-4572-BA07-FDA33B5A58E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AF80313-8F35-4572-BA07-FDA33B5A58E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AF80313-8F35-4572-BA07-FDA33B5A58E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AF80313-8F35-4572-BA07-FDA33B5A58E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BCE3E233-1404-4F01-A936-AFA07BB3B7D8} = {1DBCBDEA-BA36-4B98-B60E-69DAE2568DD1}
+		{6652B7F6-C6CF-4FC7-8662-4C4EE7E15B73} = {94D3037C-BFF0-4168-8C2C-8D860A827B5A}
+		{1404E95B-54CF-48A0-B8EC-84AA54DE428A} = {94D3037C-BFF0-4168-8C2C-8D860A827B5A}
+		{45D263E9-FEF4-4977-A9B7-D1608859B637} = {8C010441-F907-4CD2-BDAB-DF9F9917A70C}
+		{2AF80313-8F35-4572-BA07-FDA33B5A58E1} = {8C010441-F907-4CD2-BDAB-DF9F9917A70C}
+	EndGlobalSection
+EndGlobal

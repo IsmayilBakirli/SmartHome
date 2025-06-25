@@ -1,0 +1,15 @@
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\bin\Debug\net8.0\SmartHome.Application.deps.json
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\bin\Debug\net8.0\SmartHome.Application.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\bin\Debug\net8.0\SmartHome.Application.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.AssemblyInfoInputs.cache
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.AssemblyInfo.cs
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.csproj.CoreCompileInputs.cache
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\refint\SmartHome.Application.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\ref\SmartHome.Application.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\bin\Debug\net8.0\SmartHome.Domain.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\bin\Debug\net8.0\SmartHome.Domain.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.csproj.AssemblyReference.cache
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHom.B3099C48.Up2Date

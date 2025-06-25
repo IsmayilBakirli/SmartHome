@@ -1,0 +1,17 @@
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Persistence.deps.json
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Persistence.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Persistence.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.AssemblyInfoInputs.cache
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.AssemblyInfo.cs
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\refint\SmartHome.Persistence.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\ref\SmartHome.Persistence.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Application.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Domain.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Application.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Domain.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.csproj.AssemblyReference.cache
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHom.E21B814D.Up2Date
