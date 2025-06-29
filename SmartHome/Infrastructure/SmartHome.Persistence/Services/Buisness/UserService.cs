@@ -80,43 +80,11 @@ public class UserService : IUserService
 
         var roles = await _userManager.GetRolesAsync(user);
 
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.UserName)
-        };
+        var tokenString = _jwtService.GenerateToken(user, roles);
 
-        foreach (var role in roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role));
-        }
-
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.Now.AddDays(int.Parse(_configuration["Jwt:ExpireDays"])),
-            signingCredentials: creds
-        );
-
-        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-        var authResult = new AuthResult(
-            token: tokenString,
-            user: new
-            {
-                user.Id,
-                user.UserName,
-                user.Email,
-                Roles = roles
-            });
-
-        return authResult.Token;
+        return tokenString;
     }
+
     public async Task<List<object>> GetUsersAsync(ClaimsPrincipal currentUser)
     {
         var current = await _userManager.GetUserAsync(currentUser);
