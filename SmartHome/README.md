@@ -51,10 +51,10 @@ Handles  authentication and role-based  creation.
 
 | Endpoint                         | Method | Description                          | Roles          |
 |----------------------------------|--------|--------------------------------------|----------------|
-| `/api/s/login`              | POST   | Login and receive JWT token          | Public         |
-| `/api/s/create-host`        | POST   | Create Host                      | Admin          |
-| `/api/s/create-member`      | POST   | Create Member                    | Admin, Host    |
-| `/api/s/all`                | GET    | Get all s (filtered by role)     | Admin, Host    |
+| `/api/users/login`              | POST   | Login and receive JWT token          | Public         |
+| `/api/users/create-host`        | POST   | Create Host                      | Admin          |
+| `/api/users/create-member`      | POST   | Create Member                    | Admin, Host    |
+| `/api/users/all`                | GET    | Get all s (filtered by role)     | Admin, Host    |
 
 ---
 
@@ -155,7 +155,7 @@ All API responses follow a consistent format:
 ## 🚀 Conclusion
 
 The **SmartHome API** provides a secure, scalable and role-based interface for managing smart devices and s in a smart home environment. It supports powerful analytics and flexible device- mapping.
-
 For further development or integration, refer to controller-specific documentation or contact the API maintainer.
+
 
 ---

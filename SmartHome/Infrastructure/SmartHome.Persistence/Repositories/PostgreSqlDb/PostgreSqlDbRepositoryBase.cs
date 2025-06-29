@@ -3,7 +3,6 @@ using SmartHome.Application.Repositories.Contract.PostgreSqlDb;
 using SmartHome.Domain.Entities.Common;
 using SmartHome.Persistence.Contexts;
 using System.Linq.Expressions;
-
 namespace SmartHome.Persistence.Repositories.PostgreSqlDb
 {
     public class PostgreSqlDbRepositoryBase<T> : BaseRepository<T>, IPostgreSqlDbRepositoryBase<T> where T : BaseEntity

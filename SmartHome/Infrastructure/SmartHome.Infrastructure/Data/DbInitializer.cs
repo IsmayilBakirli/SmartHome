@@ -42,7 +42,7 @@ namespace SmartHome.Infrastructure.Data
 
                 if (createAdminResult.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(newAdminUser, "Admin");
+                    await userManager.AddToRoleAsync(newAdminUser,Roles.Admin.ToString());
                 }
                 else
                 {

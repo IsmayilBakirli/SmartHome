@@ -126,3 +126,4 @@ C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Presentation\SmartHome.A
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Presentation\SmartHome.API\bin\Debug\net8.0\FluentValidation.dll
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Presentation\SmartHome.API\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Presentation\SmartHome.API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Presentation\SmartHome.API\obj\Debug\net8.0\SmartHome.API.sourcelink.json

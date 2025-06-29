@@ -8,12 +8,7 @@ using SmartHome.Application.Repositories.Contract;
 using SmartHome.Application.Services.Contract.Buisness;
 using SmartHome.Domain.Entities;
 using SmartHome.Domain.Entities.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartHome.Persistence.Services.Buisness
 {

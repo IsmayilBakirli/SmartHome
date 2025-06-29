@@ -11,5 +11,9 @@ namespace SmartHome.Application.Services.Contract
         public ISensorDataService SensorDataService { get; }
         public IAnalyticsService AnalyticsService { get; }
         public IDeviceHealthService DeviceHealthService { get; }
+        public IUserService UserService { get; }    
+        public ICurrentUserService CurrentUserService { get; }
+        public IJwtService JwtService { get; }
+
     }
 }

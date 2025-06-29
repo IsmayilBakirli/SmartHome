@@ -13,3 +13,4 @@ C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Applicati
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\bin\Debug\net8.0\SmartHome.Domain.pdb
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.csproj.AssemblyReference.cache
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHom.B3099C48.Up2Date
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Core\SmartHome.Application\obj\Debug\net8.0\SmartHome.Application.sourcelink.json

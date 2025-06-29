@@ -1,7 +1,7 @@
-using SmartHome.Infrastructure.Filters;
 using Microsoft.AspNetCore.Identity;
 using SmartHome.Domain.Entities.Identity;
 using SmartHome.Infrastructure.Data;
+using SmartHome.Infrastructure.Filters;
 using SmartHome.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

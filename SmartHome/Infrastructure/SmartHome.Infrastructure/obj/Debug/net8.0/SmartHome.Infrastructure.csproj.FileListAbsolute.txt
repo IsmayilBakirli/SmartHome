@@ -17,3 +17,4 @@ C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Infrastructure\bin\Debug\net8.0\SmartHome.Persistence.dll
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Infrastructure\bin\Debug\net8.0\SmartHome.Persistence.pdb
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Infrastructure\bin\Debug\net8.0\SmartHome.Application.pdb
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Infrastructure\obj\Debug\net8.0\SmartHome.Infrastructure.sourcelink.json

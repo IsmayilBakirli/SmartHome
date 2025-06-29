@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using SmartHome.Application.Services.Contract;
 using SmartHome.Application.Services.Contract.Buisness;
 
@@ -13,7 +14,9 @@ namespace SmartHome.Persistence.Services
         private readonly Lazy<ISensorDataService> _sensorDataService;
         private readonly Lazy<IAnalyticsService> _analyticsService;
         private readonly Lazy<IDeviceHealthService> _deviceHealthService;
-
+        private readonly Lazy<IUserService> _userService;
+        private readonly Lazy<ICurrentUserService> _currentUserService;
+        private readonly Lazy<IJwtService> _jwtService;
         public ServiceManager(IServiceProvider serviceProvider)
         {
             _categoryService = new Lazy<ICategoryService>(()=>serviceProvider.GetRequiredService<ICategoryService>());
@@ -23,6 +26,10 @@ namespace SmartHome.Persistence.Services
             _sensorDataService = new Lazy<ISensorDataService>(() => serviceProvider.GetRequiredService<ISensorDataService>());
             _analyticsService = new Lazy<IAnalyticsService>(() => serviceProvider.GetRequiredService<IAnalyticsService>());
             _deviceHealthService = new Lazy<IDeviceHealthService>(() => serviceProvider.GetRequiredService<IDeviceHealthService>());
+            _userService = new Lazy<IUserService>(() => serviceProvider.GetRequiredService<IUserService>());
+            _currentUserService = new Lazy<ICurrentUserService>(() => serviceProvider.GetRequiredService<ICurrentUserService>());
+            _jwtService = new Lazy<IJwtService>(() => serviceProvider.GetRequiredService<IJwtService>());
+
 
         }
         public ICategoryService CategoryService => _categoryService.Value;
@@ -32,6 +39,9 @@ namespace SmartHome.Persistence.Services
         public ISensorDataService SensorDataService => _sensorDataService.Value;
         public IAnalyticsService AnalyticsService => _analyticsService.Value;
         public IDeviceHealthService DeviceHealthService => _deviceHealthService.Value;
+        public IUserService UserService => _userService.Value;
+        public ICurrentUserService CurrentUserService => _currentUserService.Value;
+        public IJwtService JwtService => _jwtService.Value; 
 
     }
 }

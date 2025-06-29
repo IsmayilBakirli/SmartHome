@@ -5,84 +5,85 @@ using SmartHome.Application.DTOs.Device;
 using SmartHome.Application.DTOs.Location;
 using SmartHome.Application.Exceptions;
 using SmartHome.Application.Repositories.Contract;
+using SmartHome.Application.Services.Contract;
 using SmartHome.Application.Services.Contract.Buisness;
 using SmartHome.Domain.Entities;
 using SmartHome.Domain.Entities.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using SmartHome.Domain.Enums;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartHome.Persistence.Services.Buisness
 {
     public class AnalyticsService:IAnalyticsService
     {
         private readonly IRepositoryManager _repositoryManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IServiceManager _serviceManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly ICurrentUserService _currentUserService;
         
 
-        public AnalyticsService(IRepositoryManager repositoryManager,IHttpContextAccessor httpContextAccessor,UserManager<AppUser> userManager)
+        public AnalyticsService(IRepositoryManager repositoryManager,
+                                UserManager<AppUser> userManager,
+                                ICurrentUserService currentUserService,
+                                IServiceManager serviceManager)
         {
             _repositoryManager = repositoryManager;
-            _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
+            _serviceManager = serviceManager;
+            _currentUserService = currentUserService;
         }
         public async Task<double?> GetTotalEnergyConsumptionAsync(int deviceId)
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var appUser = await _userManager.FindByIdAsync(userId);
-
-
-            bool isAdmin = await _userManager.IsInRoleAsync(appUser, "Admin");
-            bool isHost = await _userManager.IsInRoleAsync(appUser, "Host");
+            var userId = _currentUserService.GetUserId();
+            var role = await GetCurrentUserRoleAsync();
 
             var device = await _repositoryManager.DeviceRepository.FindByIdAsync(deviceId);
             if (device == null)
-            {
                 throw new NotFoundException($"Device with ID {deviceId} not found.");
-            }
 
-            IQueryable<SensorData> query;
-
-            if (isAdmin)
+            if (role == Roles.Host)
             {
-                query = _repositoryManager.SensorDataRepository.FindByCondition(x => x.DeviceId == deviceId && x.IsDeleted == null);
-            }
-            else if (isHost)
-            {
-                var deviceIds = await _repositoryManager.DeviceUserRepository
-                    .FindByCondition(x => x.UserId == userId)
-                    .Select(x => x.DeviceId)
-                    .ToListAsync();
-
-                if (!deviceIds.Contains(deviceId))
+                bool hasAccess = await HasAccessToDeviceAsync(deviceId, userId);
+                if (!hasAccess)
                     throw new ForbiddenException("You do not have permission to access data for this device.");
-
-                query = _repositoryManager.SensorDataRepository.FindByCondition(x => x.DeviceId == deviceId && x.IsDeleted == null);
             }
-            else
+            else if (role != Roles.Admin)
             {
                 throw new ForbiddenException("You do not have permission to view this data.");
             }
 
-            // Enerji istehlakını hesablamaq
-            var totalEnergyConsumption = await query.SumAsync(x => x.Value);
+            var totalEnergy = await _repositoryManager.SensorDataRepository
+                .FindByCondition(x => x.DeviceId == deviceId && x.IsDeleted == null)
+                .SumAsync(x => x.Value);
 
-            return totalEnergyConsumption;
+            return totalEnergy;
+        }
+        private async Task<Roles> GetCurrentUserRoleAsync()
+        {
+            if (await _currentUserService.IsInRole(Roles.Admin.ToString()))
+                return Roles.Admin;
+
+            if (await _currentUserService.IsInRole(Roles.Host.ToString()))
+                return Roles.Host;
+
+            return Roles.Member;
+        }
+        private async Task<bool> HasAccessToDeviceAsync(int deviceId, string userId)
+        {
+            var deviceIds = await _repositoryManager.DeviceUserRepository
+                .FindByCondition(x => x.UserId == userId)
+                .Select(x => x.DeviceId)
+                .ToListAsync();
+
+            return deviceIds.Contains(deviceId);
         }
 
         public async Task<DeviceStatusGetDto> GetDeviceStatusAsync()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var appUser = await _userManager.FindByIdAsync(userId);
-
-            bool isAdmin = await _userManager.IsInRoleAsync(appUser, "Admin");
-            bool isHost = await _userManager.IsInRoleAsync(appUser, "Host");
+            var appUser =await _serviceManager.CurrentUserService.GetUser();
+            var userId = _serviceManager.CurrentUserService.GetUserId();
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
+            bool isHost = await _serviceManager.CurrentUserService.IsInRole("Host");
             IQueryable<Device> query;
 
             if (isAdmin)
@@ -119,14 +120,12 @@ namespace SmartHome.Persistence.Services.Buisness
 
             return deviceStatus;
         }
-
         public async Task<LocationUsageDto> GetLocationUsageAsync()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var appUser = await _userManager.FindByIdAsync(userId);
-
-            bool isAdmin = await _userManager.IsInRoleAsync(appUser, "Admin");
-            bool isHost = await _userManager.IsInRoleAsync(appUser, "Host");
+            var userId =  _serviceManager.CurrentUserService.GetUserId();
+            var appUser = await _serviceManager.CurrentUserService.GetUser();
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
+            bool isHost = await _serviceManager.CurrentUserService.IsInRole("Host");
 
             IQueryable<Device> query;
 
@@ -173,7 +172,5 @@ namespace SmartHome.Persistence.Services.Buisness
                 Locations = locationUsage
             };
         }
-
-
     }
 }

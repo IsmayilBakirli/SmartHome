@@ -15,3 +15,4 @@ C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\bin\Debug\net8.0\SmartHome.Domain.pdb
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.csproj.AssemblyReference.cache
 C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHom.E21B814D.Up2Date
+C:\Users\ismayıl\Desktop\AzinTelecomProjects\SmartHome\Infrastructure\SmartHome.Persistence\obj\Debug\net8.0\SmartHome.Persistence.sourcelink.json

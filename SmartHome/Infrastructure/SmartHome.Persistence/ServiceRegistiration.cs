@@ -39,6 +39,12 @@ namespace SmartHome.Persistence
             serviceCollection.AddScoped<IAnalyticsService, AnalyticsService>();
 
             serviceCollection.AddScoped<IDeviceHealthService, DeviceHealthService>();
+            
+            serviceCollection.AddScoped<IUserService, UserService>();
+
+            serviceCollection.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            serviceCollection.AddScoped<IJwtService, JwtService>();
 
             serviceCollection.AddHttpContextAccessor();
             serviceCollection.AddDbContext<SmartHomeContext>(options =>
