@@ -9,6 +9,7 @@ namespace SmartHome.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -18,7 +19,6 @@ namespace SmartHome.API.Controllers
             _serviceManager = serviceManager;
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("All")]
         public async Task<IActionResult> GetAll()
         {
@@ -26,7 +26,6 @@ namespace SmartHome.API.Controllers
             return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.CategoriesRetrieved, data));
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] CategoryCreateDto entity)
         {
@@ -34,7 +33,6 @@ namespace SmartHome.API.Controllers
             return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.CategoryCreated, null));
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartHome.Application.DTOs.Device;
 using SmartHome.Application.Exceptions;
 using SmartHome.Application.Repositories.Contract;
+using SmartHome.Application.Services.Contract;
 using SmartHome.Application.Services.Contract.Buisness;
 using SmartHome.Domain.Entities;
 using SmartHome.Domain.Entities.Identity;
@@ -13,21 +14,20 @@ namespace SmartHome.Persistence.Services.Buisness
     public class DeviceHealthService : IDeviceHealthService
     {
         private readonly IRepositoryManager _repositoryManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IServiceManager _serviceManager;
         private readonly UserManager<AppUser> _userManager; // UserManager daxil edirik
 
-        public DeviceHealthService(IRepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager)
+        public DeviceHealthService(IRepositoryManager repositoryManager, IServiceManager serviceManager, UserManager<AppUser> userManager)
         {
             _repositoryManager = repositoryManager;
-            _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
+            _serviceManager = serviceManager;
         }
 
         public async Task<List<DeviceHealthReportDto>> GetDeviceHealthReport()
         {
-            var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
-            var user = await _userManager.FindByNameAsync(userName);
-            var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault(); 
+            var user =await _serviceManager.CurrentUserService.GetUser();
+            var userRole =_serviceManager.CurrentUserService.GetRoles().FirstOrDefault();   
 
             var devices = await _repositoryManager.DeviceRepository.GetAll().ToListAsync();
 

@@ -5,6 +5,7 @@ using SmartHome.Application.DTOs.Device;
 using SmartHome.Application.Exceptions;
 using SmartHome.Application.MappingProfile;
 using SmartHome.Application.Repositories.Contract;
+using SmartHome.Application.Services.Contract;
 using SmartHome.Application.Services.Contract.Buisness;
 using SmartHome.Domain.Entities;
 using SmartHome.Domain.Entities.Identity;
@@ -17,12 +18,12 @@ namespace SmartHome.Persistence.Services.Buisness
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public DeviceService(IRepositoryManager repositoryManager, UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor)
+        private readonly IServiceManager _serviceManager;
+        public DeviceService(IRepositoryManager repositoryManager, UserManager<AppUser> userManager, IServiceManager serviceManager)
         {
             _repositoryManager = repositoryManager;
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
+            _serviceManager = serviceManager;
         }
         public async Task CreateAsync(DeviceCreateDto entity)
         {
@@ -51,18 +52,15 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task DeleteAsync(int id)
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userId = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user =await _serviceManager.CurrentUserService.GetUser() ;
+            var userId = _serviceManager.CurrentUserService.GetUserId();
 
             if (userId == null)
                 throw new UnauthorizedAccessException("User not found.");
 
             var appUser = await _userManager.FindByIdAsync(userId);
-            if (appUser == null)
-                throw new NotFoundException("User not found.");
-
-            bool isAdmin = await _userManager.IsInRoleAsync(appUser, "Admin");
-            bool isHost = await _userManager.IsInRoleAsync(appUser, "Host");
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
+            bool isHost = await _serviceManager.CurrentUserService.IsInRole("Host");
 
             var device = await _repositoryManager.DeviceRepository.FindByIdAsync(id);
             if (device == null)
@@ -94,20 +92,12 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task<DeviceGetDto> GetDeviceDetailsAsync(int deviceId)
         {
-            var userPrincipal = _httpContextAccessor.HttpContext.User;
-            var userId = userPrincipal.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user = await _serviceManager.CurrentUserService.GetUser();
+            var userId = _serviceManager.CurrentUserService.GetUserId();
 
-            if (userId == null)
-                throw new NotFoundException("User not found.");
-
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user == null)
-                throw new NotFoundException("User not found.");
-
-            bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-            bool isHost = await _userManager.IsInRoleAsync(user, "Host");
-            bool isMember = await _userManager.IsInRoleAsync(user, "Member");
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
+            bool isHost = await _serviceManager.CurrentUserService.IsInRole("Host");
+            bool isMember = await _serviceManager.CurrentUserService.IsInRole("Member");
 
 
             Device device = null;
@@ -152,9 +142,9 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task<List<DeviceGetDto>> GetAllAsync()
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userId = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            var roles = user.FindAll(System.Security.Claims.ClaimTypes.Role).Select(r => r.Value).ToList();
+            var user = await _serviceManager.CurrentUserService.GetUser();
+            var userId = _serviceManager.CurrentUserService.GetUserId();
+            var roles = _serviceManager.CurrentUserService.GetRoles() ;
 
 
             IQueryable<Device> query;
@@ -165,7 +155,6 @@ namespace SmartHome.Persistence.Services.Buisness
             }
             else if (roles.Contains("Host"))
             {
-                // Hostun orta cədvəldə heç device-u yoxdursa boş qaytar
                 var hasDevice = await _repositoryManager.DeviceUserRepository
                     .FindByCondition(du => du.UserId == userId)
                     .AnyAsync();
@@ -179,7 +168,6 @@ namespace SmartHome.Persistence.Services.Buisness
                 query = _repositoryManager.DeviceRepository
                     .FindByCondition(d => d.DeviceUsers.Any(du => du.UserId == userId) && d.IsDeleted==null,
                                      includes: new string[] { "Category", "Location" });
-
             }
             else
             {
@@ -187,9 +175,6 @@ namespace SmartHome.Persistence.Services.Buisness
                     .FindByCondition(d => d.DeviceUsers.Any(du => du.UserId == userId) && d.IsDeleted==null,
                                      includes: new string[] { "Category", "Location" });
             }
-
-
-
             var data = await query.MapToDeviceDtos().ToListAsync();
 
             if (data == null || data.Count == 0)
@@ -202,18 +187,11 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task UpdateAsync(int deviceId, DeviceUpdateDto updateDto)
         {
-            var userPrincipal = _httpContextAccessor.HttpContext.User;
-            var userId = userPrincipal.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var user = await _serviceManager.CurrentUserService.GetUser();
+            var userId = _serviceManager.CurrentUserService.GetUserId();
 
-            if (userId == null)
-                throw new NotFoundException("User not found.");
-
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-                throw new NotFoundException("User not found.");
-
-            bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-            bool isHost = await _userManager.IsInRoleAsync(user, "Host");
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
+            bool isHost = await _serviceManager.CurrentUserService.IsInRole("Host");
 
             var device = await _repositoryManager.DeviceRepository.FindByIdAsync(deviceId);
             if (device == null)
@@ -252,9 +230,9 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task<List<DeviceGetDto>> GetDevicesByLocationAsync(int locationId)
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var roles = user.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
+            var user = await _serviceManager.CurrentUserService.GetUser();
+            var userId = _serviceManager.CurrentUserService.GetUserId();
+            var roles = _serviceManager.CurrentUserService.GetRoles();
 
             bool isAdmin = roles.Contains("Admin");
 

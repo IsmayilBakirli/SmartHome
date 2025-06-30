@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartHome.Application.DTOs.Device;
 using SmartHome.Application.Exceptions;
 using SmartHome.Application.Repositories.Contract;
+using SmartHome.Application.Services.Contract;
 using SmartHome.Application.Services.Contract.Buisness;
 using SmartHome.Domain.Entities;
 using SmartHome.Domain.Entities.Identity;
@@ -16,12 +17,14 @@ namespace SmartHome.Persistence.Services.Buisness
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public DeviceUserService(IRepositoryManager repositoryManager,UserManager<AppUser> userManager,IHttpContextAccessor httpContextAccessor)
+        private readonly IServiceManager _serviceManager;
+        public DeviceUserService(IRepositoryManager repositoryManager,
+                                 UserManager<AppUser> userManager,
+                                 IServiceManager serviceManager)
         {
             _repositoryManager = repositoryManager;
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
+            _serviceManager = serviceManager;
         }
         public async Task AssignDeviceToHost(AssignHostDto dto)
         {
@@ -62,10 +65,7 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task AssignDeviceToMember(AssignMemberDto dto)
         {
-            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier);
-
-
-            string hostId = userIdClaim.Value;
+            string hostId = _serviceManager.CurrentUserService.GetUserId();
 
             var errors = new StringBuilder();
 
@@ -115,10 +115,5 @@ namespace SmartHome.Persistence.Services.Buisness
 
             await _repositoryManager.DeviceUserRepository.CreateAsync(deviceUser);
         }
-
-
-
-
-
     }
 }

@@ -9,6 +9,7 @@ namespace SmartHome.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LocationsController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -42,7 +43,6 @@ namespace SmartHome.API.Controllers
             return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.LocationDeleted, null));
         }
 
-        [Authorize]
         [HttpGet("{locationId}/devices")]
         public async Task<IActionResult> GetDevicesByLocation(int locationId)
         {

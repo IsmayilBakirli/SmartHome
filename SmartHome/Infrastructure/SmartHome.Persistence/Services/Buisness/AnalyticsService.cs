@@ -19,22 +19,19 @@ namespace SmartHome.Persistence.Services.Buisness
         private readonly IRepositoryManager _repositoryManager;
         private readonly IServiceManager _serviceManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly ICurrentUserService _currentUserService;
         
 
         public AnalyticsService(IRepositoryManager repositoryManager,
                                 UserManager<AppUser> userManager,
-                                ICurrentUserService currentUserService,
                                 IServiceManager serviceManager)
         {
             _repositoryManager = repositoryManager;
             _userManager = userManager;
             _serviceManager = serviceManager;
-            _currentUserService = currentUserService;
         }
         public async Task<double?> GetTotalEnergyConsumptionAsync(int deviceId)
         {
-            var userId = _currentUserService.GetUserId();
+            var userId = _serviceManager.CurrentUserService.GetUserId();
             var role = await GetCurrentUserRoleAsync();
 
             var device = await _repositoryManager.DeviceRepository.FindByIdAsync(deviceId);
@@ -60,10 +57,10 @@ namespace SmartHome.Persistence.Services.Buisness
         }
         private async Task<Roles> GetCurrentUserRoleAsync()
         {
-            if (await _currentUserService.IsInRole(Roles.Admin.ToString()))
+            if (await _serviceManager.CurrentUserService.IsInRole(Roles.Admin.ToString()))
                 return Roles.Admin;
 
-            if (await _currentUserService.IsInRole(Roles.Host.ToString()))
+            if (await _serviceManager.CurrentUserService.IsInRole(Roles.Host.ToString()))
                 return Roles.Host;
 
             return Roles.Member;

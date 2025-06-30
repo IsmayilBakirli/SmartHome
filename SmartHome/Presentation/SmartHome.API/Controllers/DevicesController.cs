@@ -10,6 +10,7 @@ namespace SmartHome.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DevicesController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -18,8 +19,6 @@ namespace SmartHome.API.Controllers
         {
             _serviceManager = serviceManager;
         }
-
-        [Authorize]
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
@@ -51,7 +50,7 @@ namespace SmartHome.API.Controllers
             return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceAssignedToMember, null));
         }
 
-        [Authorize]
+
         [HttpGet("Details/{deviceId}")]
         public async Task<IActionResult> Detail(int deviceId)
         {
@@ -75,7 +74,6 @@ namespace SmartHome.API.Controllers
             return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceUpdated, null));
         }
 
-        [Authorize]
         [HttpPost("{deviceId}/addreading")]
         public async Task<IActionResult> AddReading(int deviceId, [FromBody] SensorDataCreateDto dto)
         {
@@ -83,7 +81,6 @@ namespace SmartHome.API.Controllers
             return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.SensorReadingAdded, null));
         }
 
-        [Authorize]
         [HttpGet("{id}/getreadings")]
         public async Task<IActionResult> GetRecentReadings(int id, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
@@ -91,7 +88,7 @@ namespace SmartHome.API.Controllers
             return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.SensorReadingsFetched, readings));
         }
 
-        [Authorize]
+
         [HttpGet("{id}/latestreading")]
         public async Task<IActionResult> GetLatestReading(int id)
         {

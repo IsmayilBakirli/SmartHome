@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmartHome.Application.DTOs.Device;
 using SmartHome.Application.DTOs.SensorData;
 using SmartHome.Application.Exceptions;
 using SmartHome.Application.Repositories.Contract;
+using SmartHome.Application.Services.Contract;
 using SmartHome.Application.Services.Contract.Buisness;
 using SmartHome.Domain.Entities;
 using SmartHome.Domain.Entities.Identity;
-using System.Security.Claims;
 
 namespace SmartHome.Persistence.Services.Buisness
 {
@@ -16,17 +15,17 @@ namespace SmartHome.Persistence.Services.Buisness
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public SensorDataService(IRepositoryManager repositoryManager,UserManager<AppUser> userManager,IHttpContextAccessor httpContextAccessor)
+        private readonly IServiceManager _serviceManager;
+        public SensorDataService(IRepositoryManager repositoryManager,UserManager<AppUser> userManager,IServiceManager serviceManager)
         {
             _repositoryManager = repositoryManager;
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
+            _serviceManager = serviceManager;
         }
         public async Task AddSensorReadingAsync(int deviceId, SensorDataCreateDto dto)
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userIdStr = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var appUser = await _serviceManager.CurrentUserService.GetUser();
+            var userIdStr = _serviceManager.CurrentUserService.GetUserId();
 
             if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out var userId))
                 throw new UnauthorizedException("User not found or invalid ID.");
@@ -35,11 +34,10 @@ namespace SmartHome.Persistence.Services.Buisness
             if (device == null)
                 throw new NotFoundException("Device not found");
 
-            var appUser = await _userManager.FindByIdAsync(userIdStr);
             if (appUser == null)
                 throw new NotFoundException("User not found");
 
-            bool isAdmin = await _userManager.IsInRoleAsync(appUser, "Admin");
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
 
             if (!isAdmin)
             {
@@ -66,9 +64,9 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task<List<SensorDataGetDto>> GetRecentSensorReadingsAsync(int deviceId, int page, int pageSize )
         {
-          
-            var user = _httpContextAccessor.HttpContext.User;
-            var userIdStr = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var user = await _serviceManager.CurrentUserService.GetUser();
+            var userIdStr = _serviceManager.CurrentUserService.GetUserId();
 
             if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out var userId))
                 throw new UnauthorizedException("User not found or invalid ID.");
@@ -77,8 +75,7 @@ namespace SmartHome.Persistence.Services.Buisness
             if (device == null)
                 throw new NotFoundException("Device not found");
 
-            bool isAdmin = await _userManager.IsInRoleAsync(await _userManager.FindByIdAsync(userIdStr), "Admin");
-
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
             if (!isAdmin)
             {
                 var hasAccess = await _repositoryManager.DeviceUserRepository
@@ -110,8 +107,8 @@ namespace SmartHome.Persistence.Services.Buisness
         }
         public async Task<SensorDataGetDto> GetLatestSensorReadingAsync(int deviceId)
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userIdStr = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _serviceManager.CurrentUserService.GetUser();
+            var userIdStr = _serviceManager.CurrentUserService.GetUserId();
 
             if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out var userId))
                 throw new UnauthorizedException("User not found or invalid ID.");
@@ -120,7 +117,8 @@ namespace SmartHome.Persistence.Services.Buisness
             if (device == null)
                 throw new NotFoundException("Device not found");
 
-            bool isAdmin = await _userManager.IsInRoleAsync(await _userManager.FindByIdAsync(userIdStr), "Admin");
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
+
 
             if (!isAdmin)
             {
@@ -155,16 +153,8 @@ namespace SmartHome.Persistence.Services.Buisness
 
         public async Task SetDeviceStatusAsync(int deviceId, DeviceStatusDto dto)
         {
-            var user = _httpContextAccessor.HttpContext.User;
-            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var appUser = await _userManager.FindByIdAsync(userId);
-
-            if (appUser == null)
-                throw new NotFoundException("User not found");
-
-            bool isAdmin = await _userManager.IsInRoleAsync(appUser, "Admin");
-
+            var userId = _serviceManager.CurrentUserService.GetUserId();
+            bool isAdmin = await _serviceManager.CurrentUserService.IsInRole("Admin");
             var device = await _repositoryManager.DeviceRepository.FindByIdAsync(deviceId);
             if (device == null)
                 throw new NotFoundException($"Device with Id {deviceId} not found.");
