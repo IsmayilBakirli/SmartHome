@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models;
 using SmartHome.Domain.Entities.Identity;
 using SmartHome.Infrastructure.Data;
 using SmartHome.Infrastructure.Filters;
@@ -10,8 +11,8 @@ builder.Services.AddControllers((options) => options.Filters.Add<ValidationFilte
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddAuthenticationService(builder.Configuration);
+builder.Services.AddAuthenticationService(builder.Configuration).AddPersistenceServices(builder.Configuration);
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -23,7 +24,6 @@ using (var scope = app.Services.CreateScope())
 
     await DbInitializer.SeedRolesAndAdminAsync(roleManager, userManager);
 }
-
 app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SmartHome.Domain.Entities.Identity;
 using SmartHome.Persistence.Contexts;
 using System.Text;
@@ -11,9 +12,9 @@ namespace SmartHome.Persistence
 {
     public static class AuthenticationService
     {
-        public static void AddAuthenticationService(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddAuthenticationService(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            // Identity konfiqurasiyası
+            
             serviceCollection.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 3;
@@ -47,6 +48,30 @@ namespace SmartHome.Persistence
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
                 };
             });
+            serviceCollection.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\""
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                   {
+
+                        new OpenApiSecurityScheme
+                   {
+                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                    },
+                    new string[] {}
+                    }
+                 });
+            });
+            return serviceCollection;
         }
     }
 }

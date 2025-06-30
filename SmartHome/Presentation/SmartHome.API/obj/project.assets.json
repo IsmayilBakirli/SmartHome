@@ -1260,7 +1260,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0",
           "SmartHome.Domain": "1.0.0",
-          "SmartHome.Persistence": "1.0.0"
+          "SmartHome.Persistence": "1.0.0",
+          "Swashbuckle.AspNetCore": "6.6.2"
         },
         "compile": {
           "bin/placeholder/SmartHome.Infrastructure.dll": {}

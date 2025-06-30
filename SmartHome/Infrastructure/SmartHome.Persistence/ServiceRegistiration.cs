@@ -15,7 +15,7 @@ namespace SmartHome.Persistence
 {
     public static class ServiceRegistiration
     {
-        public static void AddPersistenceServices(this IServiceCollection serviceCollection,IConfiguration configuration)
+        public static IServiceCollection AddPersistenceServices(this IServiceCollection serviceCollection,IConfiguration configuration)
         {
             serviceCollection.AddScoped<IRepositoryManager, RepositoryManager>();
             serviceCollection.AddScoped<IServiceManager, ServiceManager>();
@@ -52,7 +52,7 @@ namespace SmartHome.Persistence
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
                     d => d.MigrationsAssembly("SmartHome.Persistence"));
             });
-
+            return serviceCollection;
         }
     }
 }
