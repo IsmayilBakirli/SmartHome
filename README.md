@@ -35,15 +35,27 @@ The **SmartHome API** enables:
 - Energy and health analytics per device/location
 
 ---
-
 ## 🧱 Architecture & Design
 
-### ✅ Clean Layered Architecture
+### ✅ Onion Architecture (with Clean Separation)
 
-- **Controller Layer** – Handles HTTP requests/responses  
-- **Service Layer** – Contains business logic and role validations  
-- **Repository Layer** – Handles data access (via EF Core)  
-- **Entities & DTOs** – Clear separation of concerns with AutoMapper
+- **Presentation Layer (API)**  
+  ASP.NET Core Web API application. Handles HTTP requests and responses through Controllers.
+
+- **Application Layer**  
+  Contains service interfaces, DTOs, validation filters, business rules, and abstractions.
+
+- **Infrastructure Layer**  
+  Real implementations such as JWT, Identity, AutoMapper, Exception Middleware, and service configurations.
+
+- **Domain Layer**  
+  Core entities, roles, domain models, and business logic reside here.
+
+- **Persistence Layer**  
+  Entity Framework Core DbContext, repository implementations, and database-related code.
+
+> This structure follows **SOLID**, **Dependency Inversion**, and **Separation of Concerns** principles, making the project easy to test, extend, and maintain.
+
 
 ---
 
