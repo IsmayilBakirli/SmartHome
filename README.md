@@ -7,20 +7,42 @@ It supports multi-tenant management through structured roles (Admin, Host, Membe
 
 ## 📑 Table of Contents
 
-* [Overview](#overview)
-* [Architecture & Design](#architecture--design)
-* [Authentication](#authentication)
-* [Controllers](#controllers)
+# 🚀 SmartHome API Documentation
 
-  * [UsersController](#userscontroller)
-  * [DevicesController](#devicescontroller)
-  * [CategoriesController](#categoriescontroller)
-  * [LocationsController](#locationscontroller)
-  * [AnalyticsController](#analyticscontroller)
-* [Role-Based Access](#role-based-access)
-* [Response Format](#response-format)
-* [Technologies & Middleware](#technologies--middleware)
-* [Conclusion](#conclusion)
+The **SmartHome API** is a secure, modular and role-driven backend designed for managing smart home automation devices, their sensor data, and user-role interactions.  
+It supports multi-tenant management through structured roles (Admin, Host, Member) and provides analytics for monitoring usage and health.
+
+---
+
+## 📑 Table of Contents
+
+- [Overview](#-overview)
+- [Architecture & Design](#-architecture--design)
+- [Authentication](#-authentication)
+- [Controllers](#-controllers)
+  - [UsersController](#-userscontroller)
+  - [DevicesController](#-devicescontroller)
+  - [CategoriesController](#-categoriescontroller)
+  - [LocationsController](#-locationscontroller)
+  - [AnalyticsController](#-analyticscontroller)
+- [Role-Based Access](#-role-based-access)
+- [Response Format](#-response-format)
+- [Technologies & Middleware](#-technologies--middleware)
+- [Conclusion](#-conclusion)
+
+---
+
+## 📘 Overview
+
+The **SmartHome API** enables:
+
+- Smart device management (add, update, assign, monitor)
+- Sensor data collection and visualization
+- Hierarchical role-based access control
+- Physical location and category-based device grouping
+- Energy and health analytics per device/location
+
+... (truncated for brevity)
 
 ---
 
