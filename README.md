@@ -15,8 +15,6 @@ It supports multi-tenant management through structured roles (Admin, Host, Membe
 ---
 
 ## 📑 Table of Contents
-
-- [Overview](#-overview)
 - [Architecture & Design](#-architecture--design)
 - [Authentication](#-authentication)
 - [Controllers](#-controllers)
