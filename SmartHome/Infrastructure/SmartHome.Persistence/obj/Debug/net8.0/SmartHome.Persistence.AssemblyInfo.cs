@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartHome.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a80f7435bc6298a6fd9c49bf8df70716c9ba979")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2983e4c957bbef3ef1feaaa012f075034f1f9c6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartHome.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartHome.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
