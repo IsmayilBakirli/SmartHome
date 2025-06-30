@@ -30,14 +30,14 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> Create([FromBody] CategoryCreateDto entity)
         {
             await _serviceManager.CategoryService.CreateAsync(entity);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.CategoryCreated, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.CategoryCreated));
         }
 
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _serviceManager.CategoryService.DeleteAsync(id);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.CategoryDeleted, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.CategoryDeleted));
         }
     }
 }

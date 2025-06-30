@@ -32,7 +32,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> Create([FromBody] LocationCreateDto entity)
         {
             await _serviceManager.LocationService.CreateAsync(entity);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.LocationCreated, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.LocationCreated));
         }
 
         [Authorize(Roles = "Admin")]
@@ -40,7 +40,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _serviceManager.LocationService.DeleteAsync(id);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.LocationDeleted, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.LocationDeleted));
         }
 
         [HttpGet("{locationId}/devices")]

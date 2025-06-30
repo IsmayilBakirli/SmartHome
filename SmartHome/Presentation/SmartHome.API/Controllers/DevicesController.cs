@@ -31,7 +31,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> Create([FromBody] DeviceCreateDto dto)
         {
             await _serviceManager.DeviceService.CreateAsync(dto);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceCreated, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceCreated));
         }
 
         [Authorize(Roles = "Admin")]
@@ -39,7 +39,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> AssignToHostDevice([FromBody] AssignHostDto dto)
         {
             await _serviceManager.DeviceUserService.AssignDeviceToHost(dto);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceAssignedToUser, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceAssignedToUser));
         }
 
         [Authorize(Roles = "Host")]
@@ -47,7 +47,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> AssignToMemberDevice([FromBody] AssignMemberDto dto)
         {
             await _serviceManager.DeviceUserService.AssignDeviceToMember(dto);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceAssignedToMember, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceAssignedToMember));
         }
 
 
@@ -63,7 +63,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> Delete(int deviceId)
         {
             await _serviceManager.DeviceService.DeleteAsync(deviceId);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceDeleted, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceDeleted));
         }
 
         [Authorize(Roles = "Admin,Host")]
@@ -71,14 +71,14 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> Update(int deviceId, [FromBody] DeviceUpdateDto updateDto)
         {
             await _serviceManager.DeviceService.UpdateAsync(deviceId, updateDto);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceUpdated, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.DeviceUpdated));
         }
 
         [HttpPost("{deviceId}/addreading")]
         public async Task<IActionResult> AddReading(int deviceId, [FromBody] SensorDataCreateDto dto)
         {
             await _serviceManager.SensorDataService.AddSensorReadingAsync(deviceId, dto);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.SensorReadingAdded, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.SensorReadingAdded));
         }
 
         [HttpGet("{id}/getreadings")]
@@ -101,7 +101,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> SetDeviceStatus(int deviceId, [FromBody] DeviceStatusDto dto)
         {
             await _serviceManager.SensorDataService.SetDeviceStatusAsync(deviceId, dto);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.SensorStatusUpdated, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.SensorStatusUpdated));
         }
     }
 }

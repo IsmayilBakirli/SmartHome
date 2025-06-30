@@ -23,7 +23,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> CreateMember([FromBody] CreateUserDto dto)
         {
             await _serviceManager.UserService.CreateMemberAsync(dto, User);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.MemberCreated, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.MemberCreated));
         }
 
         [Authorize(Roles = "Admin")]
@@ -31,7 +31,7 @@ namespace SmartHome.API.Controllers
         public async Task<IActionResult> CreateHost([FromBody] CreateUserDto dto)
         {
             await _serviceManager.UserService.CreateHostAsync(dto);
-            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.HostCreated, null));
+            return Ok(new ApiResponse(ResponseCodes.Success, ResponseMessages.HostCreated));
         }
 
         [HttpPost("login")]

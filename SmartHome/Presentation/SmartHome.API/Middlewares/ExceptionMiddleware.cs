@@ -2,7 +2,6 @@
 using System.Text.Json;
 using SmartHome.Application.Common;
 using SmartHome.Application.Exceptions;
-using SmartHome.Application.Exceptions;
 
 public class ExceptionMiddleware
 {
