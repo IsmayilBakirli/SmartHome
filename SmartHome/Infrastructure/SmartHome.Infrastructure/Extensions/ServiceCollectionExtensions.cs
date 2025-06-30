@@ -10,11 +10,11 @@ using System.Text;
 
 namespace SmartHome.Persistence
 {
-    public static class AuthenticationService
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddAuthenticationService(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            
+
             serviceCollection.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 3;
